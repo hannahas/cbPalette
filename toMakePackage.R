@@ -92,3 +92,10 @@ document()
 load_all()
 str_split_one("a, b, c", pattern = ", ")
 
+# Create a README.Rmd file
+use_readme_rmd()
+
+# Add testing stuff with ggplots
+
+# Render the README using build_readme()
+build_readme()
