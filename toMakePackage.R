@@ -55,3 +55,40 @@ check()
 
 install()
 
+# Got an error about lazyLoad
+# Error: lazy-load database '/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/cbPalette/R/cbPalette.rdb' is corrupt
+
+# Try restarting R and rebuilding
+devtools::build()
+devtools::install()
+
+# No errors, woo!
+
+# Now attach and use package
+library(cbPalette)
+x <- "alfa,bravo,charlie,delta"
+strsplit1(x, split = ",")
+# To test colorblind palette plot, use the testcbPalette.R script - it works!
+
+# Make a formal unit test
+use_testthat()
+
+use_test("cbPalette")
+# This command creates test-cbPalette.R, which I've edited according to H Wickham instructions
+
+# Now check() will run test-cbPalette.R as part of the check
+# It passes!
+
+use_package("stringr")
+
+# Editing the function inside strsplit1.R
+# Now I need to rename the file
+rename_files("strsplit1", "str_split_one")
+
+# Update the roxygen tag, and update the test-cbPalette.R (Wickham guide)
+document()
+
+# Try out the new str_split_one() function by simulating package installation via load_all()
+load_all()
+str_split_one("a, b, c", pattern = ", ")
+

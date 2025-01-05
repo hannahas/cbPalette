@@ -3,6 +3,6 @@
 export(cvi_palettes)
 export(scale_colour_cvi_d)
 export(scale_fill_cvi_d)
-export(strsplit1)
+export(str_split_one)
 importFrom(ggplot2,aes)
 importFrom(ggplot2,ggplot)
