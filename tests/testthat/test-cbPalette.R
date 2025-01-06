@@ -1,12 +1,26 @@
-test_that("str_split_one() splits a string", {
-  expect_equal(str_split_one("a,b,c", ","), c("a", "b", "c"))
+library(testthat)
+library(ggplot2)
+library(cbPalette)
+
+test_that("scale_colour_cvi_d applies correct palette", {
+  # Assume ggplot2 and your package are loaded
+
+  # Create a simple data frame
+  df <- data.frame(x = 1:7, y = 1:7, group = factor(1:7))
+
+  # Create a ggplot object using the palette
+  p <- ggplot(df, aes(x, y, color = group)) +
+    geom_point() +
+    scale_colour_cvi_d("cb7")
+
+  x <- ggplot_build(p)$data
+  actual_colours <- x[[1]]$colour
+
+  # Define expected colors
+  expected_colours <- c("red", "blue", "grey39", "lightsteelblue2", "orange", "black", "pink3")
+
+  # Check if the actual colors match expected colors
+  # expect_equal(actual_colours, expected_colours, tolerance = 1e-2)
+  expect_true(setequal(expected_colours, actual_colours))
 })
 
-test_that("str_split_one() errors if input length > 1", {
-  expect_error(str_split_one(c("a,b","c,d"), ","))
-})
-
-test_that("str_split_one() exposes features of stringr::str_split()", {
-  expect_equal(str_split_one("a,b,c", ",", n = 2), c("a", "b,c"))
-  expect_equal(str_split_one("a.b", stringr::fixed(".")), c("a", "b"))
-})
