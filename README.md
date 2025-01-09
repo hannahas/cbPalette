@@ -9,7 +9,7 @@
 The goal of cbPalette is to make ggplot plots more readable for
 colorblind people. It provides functions to assist with geom_point(),
 geom_bar(), and other geom\_\* objects. The package replaces the default
-color map by using scale_color_cvi_d().
+color map by using scale_color_cb().
 
 ## Installation
 
@@ -100,16 +100,17 @@ print(plt)
 ```
 
 Now we create a different plot object from the orignal, adding a color
-scale from the cbPalette package. We specify scale_color_cvi_d(“cb7”),
-using our 7 category colorblind-friendly palette. With this map, I can
-much more easily discern the seven colors in the plot.
+scale from the cbPalette package. We specify scale_color_cb(), using our
+7 category colorblind-friendly palette. With this map, I can much more
+easily discern the seven colors in the plot.
 
 ``` r
 ######################## testing: call them in the same way we would with any scale_*() function in {ggplot2}
 cbPlot <- plt +
  geom_point(aes(colour = person), size = 3) +
   geom_line(aes(color = person), linewidth = 1) +
-  scale_colour_cvi_d("cb7")
+  scale_colour_cb()
+#> [1] 7
 print(cbPlot)
 ```
 

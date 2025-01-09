@@ -1,45 +1,21 @@
-
-cbColors <- list(
-  cvi_purples = c("#381532", "#4b1b42", "#5d2252", "#702963",
-                  "#833074", "#953784", "#a83e95"),
-  cb7 = c('red', 'blue', 'grey39', 'lightsteelblue2', 'orange', 'black', 'pink3')
-)
-
 #' Generate an actual colour palette from our simple list of colours
-#'
-#' @param name Name of the color palette we want to use
-#' @param n How many colors to use (default to full length of palette)
-#' @param all_palettes the list of colour palettes we want to extract our choice from
-#' @param type discrete or continuous palette
 #'
 #' @return a color palette
 #' @export
 #'
 #' @examples
-#' cbColors <- list(
-#'   cvi_purples = c("#381532", "#4b1b42", "#5d2252", "#702963",
-#'                 "#833074", "#953784", "#a83e95"),
-#'   cb7 = c('red', 'blue', 'grey39', 'lightsteelblue2', 'orange', 'black', 'pink3')
-#' )
-#' mypalette <- cvi_palettes("cb7", type = "discrete")
-cvi_palettes <- function(name, n, all_palettes = cbColors, type = c("discrete", "continuous")) {
-  palette = all_palettes[[name]]
-  if (missing(n)) {
-    n = length(palette)
-  }
-  type = match.arg(type)
-  out = switch(type,
-               continuous = grDevices::colorRampPalette(palette)(n),
-               discrete = palette[1:n]
-  )
-  structure(out, name = name, class = "palette")
+#' mypalette <- cbPalette()
+cbPalette <- function() {
+  palette = c('red', 'blue', 'grey39', 'lightsteelblue2', 'orange', 'black', 'pink3')
+  n = length(palette)
+  print(n)
+  out = palette[1:n]
+  structure(out, class = "palette")
 }
 
 ######################## functions so that {ggplot2} understands what to do with our colour palettes
 #' Function for ggplot to recognize palette (colour, for geom_point)
 #'
-#' @param name color palette to use
-#'
 #' @return ggplot palette
 #' @importFrom ggplot2 ggplot aes
 #' @export
@@ -59,16 +35,13 @@ cvi_palettes <- function(name, n, all_palettes = cbColors, type = c("discrete", 
 #' plt +
 #' geom_point(aes(colour = person), size = 3) +
 #'   geom_line(aes(color = person), linewidth = 1) +
-#'   scale_colour_cvi_d("cb7")
-scale_colour_cvi_d = function(name) {
-  ggplot2::scale_colour_manual(values = cvi_palettes(name,
-                                                     type = "discrete"))
+#'   scale_colour_cb()
+scale_colour_cb = function() {
+  ggplot2::scale_colour_manual(values = cbPalette())
 }
 
 #' Function for ggplot to recognize palette (fill, for geom_bar)
 #'
-#' @param name color palette to use
-#'
 #' @return ggplot palette
 #' @importFrom ggplot2 ggplot aes
 #' @export
@@ -88,10 +61,7 @@ scale_colour_cvi_d = function(name) {
 #' plt +
 #' geom_point(aes(colour = person), size = 3) +
 #'   geom_line(aes(color = person), linewidth = 1) +
-#'   scale_fill_cvi_d("cb7")
-scale_fill_cvi_d = function(name) {
-  ggplot2::scale_fill_manual(values = cvi_palettes(name,
-                                                   type = "discrete"))
+#'   scale_fill_cb()
+scale_fill_cb = function() {
+  ggplot2::scale_fill_manual(values = cbPalette())
 }
-######################## functions so that {ggplot2} understands what to do with our colour palettes
-

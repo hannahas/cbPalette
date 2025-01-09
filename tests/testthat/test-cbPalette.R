@@ -2,7 +2,7 @@ library(testthat)
 library(ggplot2)
 library(cbPalette)
 
-test_that("scale_colour_cvi_d applies correct palette", {
+test_that("scale_colour_cb applies correct palette", {
   # Assume ggplot2 and your package are loaded
 
   # Create a simple data frame
@@ -11,7 +11,7 @@ test_that("scale_colour_cvi_d applies correct palette", {
   # Create a ggplot object using the palette
   p <- ggplot(df, aes(x, y, color = group)) +
     geom_point() +
-    scale_colour_cvi_d("cb7")
+    scale_colour_cb()
 
   x <- ggplot_build(p)$data
   actual_colours <- x[[1]]$colour
